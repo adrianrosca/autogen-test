@@ -1,0 +1,32 @@
+{
+	"devDependencies": {
+		"@graphql-codegen/cli": "^5.0.3",
+		"@graphql-codegen/introspection": "^4.0.3",
+		"@graphql-codegen/typescript": "^4.1.0",
+		"@graphql-codegen/typescript-mongodb": "^3.0.0",
+		"@graphql-codegen/typescript-resolvers": "^4.3.0",
+		"@graphql-tools/schema": "^10.0.7",
+		"@swc/core": "^1.7.14",
+		"@swc/helpers": "^0.5.12",
+		"@typegoose/typegoose": "^12.8.0",
+		"@types/node": "^20.12.10",
+		"@types/nodemon": "^1.19.6",
+		"esbuild": "^0.23.1",
+		"graphql": "^16.9.0",
+		"nodemon": "^3.1.0",
+		"prettier": "^3.2.5",
+		"ts-node": "^10.9.2",
+		"type-graphql": "2.0.0-rc.2",
+		"typescript": "^5.6.3"
+	},
+	"scripts": {
+		"start:dev": "nodemon",
+		"clean": "rmdir /s /q node_modules && del /f /q package-lock.json pnpm-lock.yaml",
+		"generate:schema": "ts-node --transpile-only src/generators/1.generate-schema.ts",
+		"generate:introspection": "pnpm graphql-codegen --config src/generators/2.codegen.yml",
+		"generate:graphql": "ts-node --transpile-only src/generators/3.generate-graphql.ts",
+		"generate:resolver": "ts-node --transpile-only src/generators/4.generate-resolver.ts",
+		"generate": "pnpm run generate:schema && pnpm run generate:introspection && pnpm run generate:graphql && pnpm run generate:resolver",
+		"start": "ts-node --transpile-only index.ts"
+	}
+}
