@@ -2,6 +2,7 @@
 	"editor.formatOnSave": true,
 	"typescript.validate.enable": true,
 	"javascript.validate.enable": true,
+	"debug.javascript.autoAttachFilter": "onlyWithFlag",
 	"search.exclude": {
 		"node_modules": true,
 		"node_modules/.pnpm": true

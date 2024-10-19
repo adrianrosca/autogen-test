@@ -1,0 +1,22 @@
+{
+	"name": "dp-server",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"start": "ts-node src/server.ts",
+		"start:dev": "nodemon --watch src --exec ts-node src/server.ts"
+	},
+	"dependencies": {
+		"@fastify/cors": "^10.0.1",
+		"@typegoose/typegoose": "^12.8.0",
+		"fastify": "^5.0.0",
+		"mongoose": "^8.7.2"
+	},
+	"devDependencies": {
+		"@types/mongoose": "^5.11.97",
+		"@types/node": "^20.16.13",
+		"@types/nodemon": "^1.19.6",
+		"nodemon": "^3.1.0",
+		"tsconfig-paths": "^4.2.0"
+	}
+}

@@ -2,9 +2,8 @@
 node_modules/
 
 # Build outputs
-dist/
-build/
-out/
+.dist/
+.vscode/chrome-debug-profile
 
 # Debug logs
 npm-debug.log*

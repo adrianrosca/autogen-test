@@ -1,0 +1,4 @@
+packages:
+  - "dp-client"    # Path to the dp-client package
+  - "dp-server"    # Path to the dp-server package
+  - "dp-common"    # Path to the dp-common package

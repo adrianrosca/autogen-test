@@ -1,0 +1,15 @@
+{
+	"name": "dp-common",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"generate": "node --inspect -r ts-node/register src/generators/_generate.ts"
+	},
+	"dependencies": {
+		"@typegoose/typegoose": "^12.8.0",
+		"mongoose": "^8.7.2"
+	},
+	"devDependencies": {
+		"@types/node": "^22.7.7"
+	}
+}

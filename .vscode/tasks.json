@@ -2,14 +2,24 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "tsc: build - tsconfig.json",
 			"type": "shell",
-			"command": "tsc",
-			"args": ["-p", "tsconfig.json"],
-			"problemMatcher": ["$tsc"],
-			"group": {
-				"kind": "build",
-				"isDefault": true
+			"command": "pnpm",
+			"args": ["run", "start"],
+			"options": {
+				"cwd": "${workspaceFolder}/dp-client"
+			},
+			"label": "start-vite",
+			"isBackground": true,
+			"problemMatcher": {
+				"owner": "custom",
+				"pattern": {
+					"regexp": "^$"
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "^.*VITE.*  ready in.*$",
+					"endsPattern": "^.*VITE.*  ready in.*$"
+				}
 			}
 		}
 	]

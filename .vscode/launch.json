@@ -2,22 +2,61 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Debug TS",
+			"name": "dp-common generate",
 			"type": "node",
 			"request": "launch",
 			"runtimeExecutable": "node",
-			"runtimeArgs": ["--inspect-brk", "--require", "ts-node/register"],
-			"args": ["${workspaceFolder}/src/generators/_generate.ts"],
-			"cwd": "${workspaceFolder}",
+			"runtimeArgs": ["--inspect", "--require", "ts-node/register"],
+			"args": ["${workspaceFolder}/dp-common/src/generators/_generate.ts"],
+			"cwd": "${workspaceFolder}/dp-common",
 			"env": {
-				"TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+				"TS_NODE_PROJECT": "${workspaceFolder}/dp-common/tsconfig.json"
 			},
 			"console": "integratedTerminal",
 			"internalConsoleOptions": "neverOpen",
 			"sourceMaps": true,
 			"smartStep": false,
-			"resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
+			"resolveSourceMapLocations": ["${workspaceFolder}/dp-common/**", "!**/node_modules/**"],
 			"skipFiles": ["<node_internals>/**", "**/node_modules/**"]
+		},
+		{
+			"name": "dp-server",
+			"type": "node",
+			"request": "launch",
+			"runtimeExecutable": "node",
+			"runtimeArgs": ["--inspect", "--require", "ts-node/register"],
+			"args": ["${workspaceFolder}/dp-server/src/server.ts"],
+			"cwd": "${workspaceFolder}/dp-server",
+			"env": {
+				"TS_NODE_PROJECT": "${workspaceFolder}/dp-server/tsconfig.json"
+			},
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen",
+			"sourceMaps": true,
+			"smartStep": false,
+			"resolveSourceMapLocations": ["${workspaceFolder}/dp-server/**", "!**/node_modules/**"],
+			"skipFiles": ["<node_internals>/**", "**/node_modules/**"]
+		},
+		{
+			"name": "dp-client",
+			"type": "chrome",
+			"request": "launch",
+			"url": "http://localhost:5173",
+			"webRoot": "${workspaceFolder}/dp-client",
+			"sourceMaps": true,
+			"sourceMapPathOverrides": {
+				"webpack:///./src/*": "${webRoot}/src/*"
+			},
+			"runtimeArgs": ["--disable-web-security"],
+			"userDataDir": "${workspaceFolder}/.vscode/chrome-debug-profile",
+			"preLaunchTask": "start-vite",
+			"postDebugTask": "stop-vite"
+		}
+	],
+	"compounds": [
+		{
+			"name": "dp-server + dp-client",
+			"configurations": ["dp-server", "dp-client"]
 		}
 	]
 }

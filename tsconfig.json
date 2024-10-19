@@ -2,14 +2,7 @@
 	"compilerOptions": {
 		"target": "ES2022",
 		"module": "commonjs",
-		"lib": ["ES2022", "dom"],
-		"outDir": "lib",
-		"rootDir": "./src",
-		"jsx": "react-jsx",
-		"types": ["node"],
-		"declaration": true,
-		"declarationMap": true,
-		"sourceMap": true,
+		"lib": ["ES2022"],
 		"strict": true,
 		"strictNullChecks": true,
 		"strictFunctionTypes": true,
@@ -22,18 +15,12 @@
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
 		"moduleResolution": "node",
-		"resolveJsonModule": true,
 		"esModuleInterop": true,
-		"allowUnreachableCode": true,
-		"allowSyntheticDefaultImports": true,
-		"allowJs": true,
+		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
-		"isolatedModules": true,
-		"noEmit": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true
 	},
-	"include": ["src/**/*"],
-	"exclude": ["node_modules", "**/node_modules/*", "node_modules/.pnpm"]
+	"exclude": ["node_modules", "**/node_modules/*", "lib", "dist"]
 }

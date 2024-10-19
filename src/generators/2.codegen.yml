@@ -1,6 +1,0 @@
-overwrite: true
-schema: "./src/_generated/schema.graphql"
-generates:
-  src/_generated/graphql.schema.json:
-    plugins:
-      - "introspection"

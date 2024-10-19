@@ -1,0 +1,11 @@
+{
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@dp-common/*": ["../dp-common/src/*"],
+			"@dp-server/*": ["./src/*"]
+		}
+	},
+	"include": ["./src/**/*", "../dp-common/src/**/*"]
+}
