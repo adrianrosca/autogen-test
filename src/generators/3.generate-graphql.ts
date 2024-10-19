@@ -9,11 +9,7 @@ import {
 	buildSchema,
 	isNamedType,
 } from "graphql";
-import {
-	graphqlTemplate,
-	typeTemplate,
-	resolverTemplate,
-} from "../templates/graphql-template";
+import { graphqlTemplate, typeTemplate, resolverTemplate } from "../templates/graphql-template";
 
 function generateTypes(schema: GraphQLSchema): string {
 	let types = "";
@@ -22,9 +18,7 @@ function generateTypes(schema: GraphQLSchema): string {
 	for (const [typeName, type] of Object.entries(typeMap)) {
 		if (type instanceof GraphQLObjectType && !typeName.startsWith("__")) {
 			const fields = generateTypeFields(type);
-			types += typeTemplate
-				.replace(/{{TYPE_NAME}}/g, typeName)
-				.replace("{{TYPE_FIELDS}}", fields);
+			types += typeTemplate.replace(/{{TYPE_NAME}}/g, typeName).replace("{{TYPE_FIELDS}}", fields);
 		}
 	}
 
@@ -46,14 +40,9 @@ function generateResolvers(schema: GraphQLSchema): string {
 	return resolvers;
 }
 
-function generateResolverType(
-	typeName: string,
-	type: GraphQLObjectType,
-): string {
+function generateResolverType(typeName: string, type: GraphQLObjectType): string {
 	const fields = generateResolverFields(type);
-	return resolverTemplate
-		.replace(/{{TYPE_NAME}}/g, typeName)
-		.replace("{{RESOLVER_FIELDS}}", fields);
+	return resolverTemplate.replace(/{{TYPE_NAME}}/g, typeName).replace("{{RESOLVER_FIELDS}}", fields);
 }
 
 function generateTypeFields(type: GraphQLObjectType): string {

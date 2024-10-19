@@ -4,38 +4,60 @@ import { type GraphQLSchema, printSchema } from "graphql";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const typeDefs = `
-  type User {
-    id: ID!
-    name: String!
-  }
+// custom field type definition function
+// ------------------------------------------------------------------------------------------
+function generateTypeDefs(typeName: string, fields: { [key: string]: string }): string {
+	const fieldDefs = Object.entries(fields)
+		.map(([fieldName, fieldType]) => `${fieldName}: ${fieldType}!`)
+		.join("\n");
 
-  type Query {
-    users: [User!]!
-    user(id: ID!): User
-  }
+	return `
+    type ${typeName} {
+      ${fieldDefs}
+    }
 
-  type Mutation {
-    createUser(name: String!): User!
-    updateUser(id: ID!, name: String): User
-    deleteUser(id: ID!): Boolean!
-  }
-`;
+    type Query {
+      ${typeName.toLowerCase()}s: [${typeName}!]!
+      ${typeName.toLowerCase()}(id: ID!): ${typeName}
+    }
 
-// Placeholder resolvers
-const resolvers = {
-	Query: {
-		users: () => [],
-		user: () => null,
-	},
-	Mutation: {
-		createUser: () => ({}),
-		updateUser: () => null,
-		deleteUser: () => false,
-	},
-};
+    type Mutation {
+      create${typeName}(${Object.entries(fields)
+				.map(([fieldName, fieldType]) => `${fieldName}: ${fieldType}!`)
+				.join(", ")}): ${typeName}!
+      update${typeName}(id: ID!, ${Object.entries(fields)
+				.map(([fieldName, fieldType]) => `${fieldName}: ${fieldType}`)
+				.join(", ")}): ${typeName}
+      delete${typeName}(id: ID!): Boolean!
+    }
+  `;
+}
 
-async function generateSchema(): Promise<void> {
+// dynamic resolvers generation function based on the type name
+// ------------------------------------------------------------------------------------------
+function generateResolvers(typeName: string) {
+	const pluralName = `${typeName.toLowerCase()}s`;
+	const singularName = typeName.toLowerCase();
+
+	return {
+		Query: {
+			[pluralName]: () => [], // e.g., users: () => []
+			[singularName]: () => null, // e.g., user: () => null
+		},
+		Mutation: {
+			[`create${typeName}`]: () => ({}), // e.g., createUser: () => ({})
+			[`update${typeName}`]: () => null, // e.g., updateUser: () => null
+			[`delete${typeName}`]: () => false, // e.g., deleteUser: () => false
+		},
+	};
+}
+
+// schema generation function with dynamic fields and resolvers
+// ------------------------------------------------------------------------------------------
+export async function generateSchema(typeName: string, fields: { [key: string]: string }): Promise<void> {
+	const typeDefs = generateTypeDefs(typeName, fields);
+	const resolvers = generateResolvers(typeName);
+
 	const schema: GraphQLSchema = makeExecutableSchema({
 		typeDefs,
 		resolvers,
@@ -47,11 +69,9 @@ async function generateSchema(): Promise<void> {
 		mkdirSync(dir);
 	}
 
-	const outputPath = join(dir, "schema.graphql");
+	const outputPath = join(dir, `${typeName.toLowerCase()}.schema.graphql`);
 	const printedSchema = printSchema(schema);
 
 	writeFileSync(outputPath, printedSchema);
-	console.log("Schema generated at", outputPath);
+	console.log(`Schema generated at ${outputPath}`);
 }
-
-generateSchema().catch(console.error);

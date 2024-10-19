@@ -4,10 +4,9 @@ import { Field, ObjectType, ID } from "type-graphql";
 @ObjectType()
 export class User {
 	@Field(() => ID)
-	_id!: string; // Mongoose handles this automatically
-
+	_id!: string;
 	@Field(() => String)
-	@prop({ type: () => String, required: true }) // Ensure type is properly defined
+	@prop({ type: () => String, required: true })
 	name!: string;
 }
 

@@ -1,12 +1,13 @@
 # get started
 - pnpm i
-- pnpm generate
+- pnpm generate (F5)
 - pnpm start
 
 # clean
 - pnpm clean
 
 # create new repo from existing code
+- remove .git folder
 - git init
 - git add .
 - git commit -m "Initial commit"

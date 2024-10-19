@@ -22,11 +22,10 @@
 	"scripts": {
 		"start:dev": "nodemon",
 		"clean": "rmdir /s /q node_modules && del /f /q package-lock.json pnpm-lock.yaml",
-		"generate:schema": "ts-node --transpile-only src/generators/1.generate-schema.ts",
-		"generate:introspection": "pnpm graphql-codegen --config src/generators/2.codegen.yml",
-		"generate:graphql": "ts-node --transpile-only src/generators/3.generate-graphql.ts",
-		"generate:resolver": "ts-node --transpile-only src/generators/4.generate-resolver.ts",
-		"generate": "pnpm run generate:schema && pnpm run generate:introspection && pnpm run generate:graphql && pnpm run generate:resolver",
+		"generate": "node --inspect -r ts-node/register src/generators/_generate.ts",
 		"start": "ts-node --transpile-only index.ts"
+	},
+	"dependencies": {
+		"reflect-metadata": "^0.2.2"
 	}
 }

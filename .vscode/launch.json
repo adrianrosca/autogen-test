@@ -2,17 +2,22 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"name": "Debug TS",
 			"type": "node",
 			"request": "launch",
-			"name": "Generate",
-			"skipFiles": ["<node_internals>/**"],
-			"runtimeExecutable": "pnpm",
-			"runtimeArgs": ["run", "generate"],
-			"outFiles": ["${workspaceFolder}/src/_generated/**/*.js"],
-			"preLaunchTask": "tsc: build - tsconfig.json",
-			"sourceMaps": true,
+			"runtimeExecutable": "node",
+			"runtimeArgs": ["--inspect-brk", "--require", "ts-node/register"],
+			"args": ["${workspaceFolder}/src/generators/_generate.ts"],
+			"cwd": "${workspaceFolder}",
+			"env": {
+				"TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+			},
 			"console": "integratedTerminal",
-			"internalConsoleOptions": "neverOpen"
+			"internalConsoleOptions": "neverOpen",
+			"sourceMaps": true,
+			"smartStep": false,
+			"resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
+			"skipFiles": ["<node_internals>/**", "**/node_modules/**"]
 		}
 	]
 }

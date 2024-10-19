@@ -1,0 +1,43 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+	"formatter": {
+		"enabled": true,
+		"lineWidth": 120
+	},
+	"javascript": {
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
+		}
+	},
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useExhaustiveDependencies": "off",
+				"noChildrenProp": "off"
+			},
+			"a11y": {
+				"useKeyWithClickEvents": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noConfusingVoidType": "off"
+			},
+			"complexity": {
+				"noBannedTypes": "off",
+				"noForEach": "off",
+				"noStaticOnlyClass": "off",
+				"noThisInStatic": "off",
+				"noUselessSwitchCase": "warn"
+			},
+			"style": {
+				"useImportType": "off",
+				"noInferrableTypes": "off",
+				"noNonNullAssertion": "warn",
+				"noUselessElse": "off"
+			},
+			"performance": {
+				"noDelete": "off"
+			}
+		}
+	}
+}
